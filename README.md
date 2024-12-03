@@ -113,9 +113,10 @@ $TTL 1D
         IN      NS      master.suraj.com.
 suraj.com.      IN      A       192.168.1.100
 www.suraj.com.  IN      A       192.168.1.100
-Explanation:
 
 ```
+  - Explanation:
+
   - suraj.com. IN A 192.168.1.100: Maps suraj.com to the server's IP address.
   - www.suraj.com. IN A 192.168.1.100: Maps www.suraj.com to the same IP.
 
@@ -238,11 +239,6 @@ server {
 
 
 
-
-
-
-
-
 ### 7. Testing the Setup
 1. Test DNS:
 
@@ -257,14 +253,14 @@ server {
 ```yml
 # curl http://suraj.com      OR  in the browser http://suraj.com
 ```
-  - Displays: <h1>Main Server: Welcome to Suraj.com</h1>
+ ####  - Display: <h1>Main Server: Welcome to Suraj.com</h1>
 
 3. Test HTTPS:
 
 ```yml
 # curl -k https://suraj.com      OR  in the browser https://suraj.com
 ```
-  - Displays: <h1>Virtual Host: Welcome to Suraj.com</h1>
+ ####  - Display: <h1>Virtual Host: Welcome to Suraj.com</h1>
 
 
 
@@ -272,11 +268,6 @@ server {
 
 <br>
 <br>
-
-
-
-
-
 
 ## Conclusion
 
