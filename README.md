@@ -100,8 +100,8 @@ cp -r /var/named /var/named.bak
 
 ### 1. Install Nginx
 ```yml
-# yum install nginx -y   # For RedHat/CentOS
-# apt update && apt install nginx bind9 -y  # For Debian/Ubuntu
+  yum install nginx -y   # For RedHat/CentOS
+  apt update && apt install nginx bind9 -y  # For Debian/Ubuntu
 ```
   Explanation:
 
@@ -113,8 +113,8 @@ cp -r /var/named /var/named.bak
 
 ### 2. Start and Enable Nginx
 ```yml
-# systemctl start nginx
-# systemctl enable nginx
+  systemctl start nginx
+  systemctl enable nginx
 ```
   Explanation:
 
@@ -124,9 +124,9 @@ cp -r /var/named /var/named.bak
 
 ### 3. Set Up Default Web Page
 ```yml
-# cd /var/www/html   # For Debian/Ubuntu
-# cd /usr/share/nginx/html  # For RedHat/CentOS
-# echo "<h1>Welcome to Nginx Web Server</h1>" > index.html
+  cd /var/www/html   # For Debian/Ubuntu
+  cd /usr/share/nginx/html  # For RedHat/CentOS
+  echo "<h1>Welcome to Nginx Web Server</h1>" > index.html
 ```
   - Explanation:
 
@@ -139,7 +139,7 @@ cp -r /var/named /var/named.bak
 ### Step 1: Update Named Configuration
 
 ```yml
-# vim /etc/named.conf
+  vim /etc/named.conf
 ```
   - Explanation: Opens the named.conf file to define new DNS zones.
 
@@ -156,9 +156,9 @@ zone "suraj.com" IN {
 ### Step 2: Create Zone File (Bind9)
 
 ```yml
-# cd /var/named
-# cp -av for.example.com for.suraj.com
-# vim for.suraj.com
+  cd /var/named
+  cp -av for.example.com for.suraj.com
+  vim for.suraj.com
 ```
 - Explanation:
 
@@ -189,7 +189,7 @@ www.suraj.com.  IN      A       192.168.1.100
   *Restart the DNS service:*
 
 ```yml
-# systemctl restart named
+  systemctl restart named
 ```
   - Explanation: Applies the changes to the DNS configuration.
 
@@ -198,23 +198,23 @@ www.suraj.com.  IN      A       192.168.1.100
 Step 1: Create Web Directories
 
 ```yml
-# mkdir -p /usr/share/nginx/html/suraj.com
+  mkdir -p /usr/share/nginx/html/suraj.com
 ```
   - Explanation: Creates a directory to hold the content for suraj.com.
 
   *Add HTML Content:*
 ```yml
 
-# echo "<h1>Main Server: Welcome to Suraj.com</h1>" > /usr/share/nginx/html/index.html
-# echo "<h1>Virtual Host: Welcome to Suraj.com</h1>" > /usr/share/nginx/html/suraj.com/index.html
+  echo "<h1>Main Server: Welcome to Suraj.com</h1>" > /usr/share/nginx/html/index.html
+  echo "<h1>Virtual Host: Welcome to Suraj.com</h1>" > /usr/share/nginx/html/suraj.com/index.html
 ```
   - Explanation: Creates a unique HTML file for the main server and virtual host.
 
 Step 2: Configure Virtual Hosts
 
 ```yml
-# vim /etc/nginx/sites-available/suraj-main.conf
-# vim /etc/nginx/sites-available/suraj-vhost.conf
+  vim /etc/nginx/sites-available/suraj-main.conf
+  vim /etc/nginx/sites-available/suraj-vhost.conf
 ```
   - Explanation: Opens files for defining server configurations.
 
@@ -247,9 +247,9 @@ server {
 ### Step 3: Enable Configurations
 
 ```yml
-# ln -s /etc/nginx/sites-available/suraj-main.conf /etc/nginx/sites-enabled/
-# ln -s /etc/nginx/sites-available/suraj-vhost.conf /etc/nginx/sites-enabled/
-# systemctl restart nginx
+  ln -s /etc/nginx/sites-available/suraj-main.conf /etc/nginx/sites-enabled/
+  ln -s /etc/nginx/sites-available/suraj-vhost.conf /etc/nginx/sites-enabled/
+  systemctl restart nginx
 ```
   - Explanation: Links the configuration files to the active directory and restarts Nginx.
 
@@ -258,9 +258,9 @@ server {
 Step 1: Generate SSL Certificates
 
 ```yml
-# mkdir /etc/nginx/certs
-# cd /etc/nginx/certs
-# openssl req -newkey rsa:2048 -nodes -keyout suraj.key -x509 -days 365 -out suraj.crt
+  mkdir /etc/nginx/certs
+  cd /etc/nginx/certs
+  openssl req -newkey rsa:2048 -nodes -keyout suraj.key -x509 -days 365 -out suraj.crt
 ```
   - Generates a private key (suraj.key) and a public certificate (suraj.crt) valid for 365 days.
 
@@ -274,7 +274,7 @@ Step 1: Generate SSL Certificates
 Step 2: Configure HTTPS
 
 ```yml
-# vim /etc/nginx/sites-available/suraj-ssl.conf
+  vim /etc/nginx/sites-available/suraj-ssl.conf
 ```
   - Add the following:
 
@@ -296,9 +296,9 @@ server {
 *Enable the configuration:*
 
 ```yml
-# ln -s /etc/nginx/sites-available/suraj-ssl.conf /etc/nginx/sites-enabled/
+  ln -s /etc/nginx/sites-available/suraj-ssl.conf /etc/nginx/sites-enabled/
 
-# systemctl restart nginx
+  systemctl restart nginx
 
 ```
 
@@ -309,22 +309,22 @@ server {
 1. Test DNS:
 
 ```yml
-# host suraj.com
-# host www.suraj.com
+  host suraj.com
+  host www.suraj.com
 ```
   - Confirms that suraj.com resolves to the correct IP.
 
 2. Test HTTP:
 
 ```yml
-# curl http://suraj.com      OR  in the browser http://suraj.com
+  curl http://suraj.com      OR  in the browser http://suraj.com
 ```
  ####  - Display: <h1>Main Server: Welcome to Suraj.com</h1>
 
 3. Test HTTPS:
 
 ```yml
-# curl -k https://suraj.com      OR  in the browser https://suraj.com
+  curl -k https://suraj.com      OR  in the browser https://suraj.com
 ```
  ####  - Display: <h1>Virtual Host: Welcome to Suraj.com</h1>
 
